@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <color name="accent">#96BDC2</color>
+
+    <color name="primary">#A2042C</color>
+
+    <color name="primary_dark">#323232</color>
+
+    <color name="error_text">#D9192C</color>
+
+    <color name="warning_text">#FF9909</color>
+
+    <color name="success_text">#99CC00</color>
+
+    <color name="panel_background">#444444</color>
+
+    <color name="panel_separator">#5a5a5a</color>
+
+    <color name="checked">#4a4a4a</color>
+
+    <color name="pressed">#5a5a5a</color>
+
+</resources>

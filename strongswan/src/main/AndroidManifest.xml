@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="org.strongswan.android">
+
+    <application
+        android:name=".logic.StrongSwanApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:theme="@style/ApplicationTheme"
+        tools:targetApi="n">
+        <activity
+            android:name=".ui.MainActivity"
+            android:label="@string/main_activity_name"
+            android:launchMode="singleTop">
+        </activity>
+        <activity
+            android:name=".ui.VpnProfileControlActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:taskAffinity=""
+            android:theme="@style/TransparentActivity">
+            <intent-filter>
+                <action android:name="org.strongswan.android.action.START_PROFILE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.strongswan.android.action.DISCONNECT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.VpnProfileDetailActivity" />
+        <activity
+            android:name=".ui.TrustedCertificatesActivity"
+            android:label="@string/trusted_certs_title" />
+        <activity
+            android:name=".ui.SelectedApplicationsActivity"
+            android:label="@string/profile_select_apps" />
+        <activity
+            android:name=".ui.LogActivity"
+            android:label="@string/log_title" />
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:label="@string/pref_title" />
+        <activity
+            android:name=".ui.RemediationInstructionsActivity"
+            android:label="@string/remediation_instructions_title" />
+        <activity
+            android:name=".ui.VpnProfileSelectActivity"
+            android:icon="@mipmap/ic_shortcut"
+            android:label="@string/strongswan_shortcut">
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.VpnProfileImportActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/profile_import"
+            android:taskAffinity="">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:scheme="file" />
+                <data android:scheme="content" />
+                <data android:mimeType="application/vnd.strongswan.profile" />
+            </intent-filter>
+            <!-- this matches by file extension if no MIME type is provided -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:scheme="file" />
+                <data android:scheme="content" />
+                <data android:host="*" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.sswan" />
+                <data android:pathPattern=".*\\..*\\..*\\.sswan" />
+                <data android:pathPattern=".*\\..*\\.sswan" />
+                <data android:pathPattern=".*\\.sswan" />
+            </intent-filter>
+            <!-- this matches by file extension if any MIME type (but not ours) is provided -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:scheme="file" />
+                <data android:scheme="content" />
+                <data android:host="*" />
+                <data android:mimeType="*/*" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.sswan" />
+                <data android:pathPattern=".*\\..*\\..*\\.sswan" />
+                <data android:pathPattern=".*\\..*\\.sswan" />
+                <data android:pathPattern=".*\\.sswan" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.TrustedCertificateImportActivity"
+            android:label="@string/import_certificate"
+            android:theme="@style/TransparentActivity">
+            <intent-filter
+                tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="application/x-x509-ca-cert" />
+                <data android:mimeType="application/x-x509-server-cert" />
+                <data android:mimeType="application/x-pem-file" />
+                <data android:mimeType="application/pkix-cert" />
+            </intent-filter>
+        </activity>
+
+
+        <service
+            android:name=".logic.VpnStateService"
+            android:exported="false" />
+
+        <service
+            android:name=".logic.CharonVpnService"
+            android:exported="false"
+            android:permission="android.permission.BIND_VPN_SERVICE">
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+        </service>
+    </application>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+</manifest>
